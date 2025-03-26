@@ -1,0 +1,42 @@
+"""
+Sample configuration file for Manus Backend.
+"""
+
+# Global settings
+settings:
+  default_provider: "openai"
+  fallback_strategy: "priority"  # Options: priority, round-robin, random
+  request_timeout: 60
+  max_tokens: 4096
+  temperature: 0.0
+  debug: false
+  cors_origins:
+    - "*"
+
+# Provider configurations
+providers:
+  - name: "openai"
+    api_key: "${OPENAI_API_KEY}"  # Will be replaced with environment variable
+    base_url: "https://api.openai.com/v1"
+    models:
+      - "gpt-4o"
+      - "gpt-4-turbo"
+      - "gpt-3.5-turbo"
+    priority: 1
+    timeout: 30
+    max_retries: 3
+    enabled: true
+    rate_limit: 100  # Requests per minute
+
+  - name: "anthropic"
+    api_key: "${ANTHROPIC_API_KEY}"  # Will be replaced with environment variable
+    base_url: "https://api.anthropic.com"
+    models:
+      - "claude-3-opus"
+      - "claude-3-sonnet"
+      - "claude-3-haiku"
+    priority: 2
+    timeout: 30
+    max_retries: 3
+    enabled: true
+    rate_limit: 100  # Requests per minute
